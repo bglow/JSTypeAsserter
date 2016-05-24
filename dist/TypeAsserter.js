@@ -29,7 +29,7 @@
                     , "number", "[number]", "...number"
                     , "boolean", "[boolean]", "...boolean"
                     , "object", "[object]", "...object"
-                    , "function", "[function]", "..function"
+                    , "function", "[function]", "...function"
                     , "symbol", "[symbol]", "...symbol"].indexOf(type) > -1) {
 
                 type = type.trim();
@@ -175,7 +175,7 @@
             var passedArgs = Array.prototype.slice.call(arguments);
             var result = TypeAsserter.assertMatch.apply(TypeAsserter, [types].concat(passedArgs));
             if (!result.match) throw new TypeAssertionError("Bad arguments passed to function! " + result.reason);
-            var returnValue = fn.apply(fn, passedArgs);
+            var returnValue = fn.apply(this, passedArgs);
             if (!isNil(returnType)) {
                 result = TypeAsserter.assertMatch.call(TypeAsserter, returnType, returnValue);
                 if (!result.match) throw new TypeAssertionError("Bad result returned from function! " + result.reason);

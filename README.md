@@ -39,8 +39,9 @@ TypeAsserter can be used in three ways:
     * if types is an array, then args[0] will be matched with types[0], args[1] with types[1], etc.
         * if a non-optional type is specfied for which there is a non-truthy arg, then match will be set to false
 
-2. `TypeAsserter.createFn(fn: Function, types: string|Object|Array<string|Object>, [returnType: string|Object]): Function`
+2. `<T> TypeAsserter.createFn(fn: Function, types: string|Object|Array<string|Object>, [returnType: string|Object]): (args: ...any): T`
     * pass a Function, type assertions, and an optional return type assertion, and get back a new function which will do the checks at runtime, and throw an exception if the runtime args and optionally return type do not match
+    * fn will be bound to the this arg of the returned function, so be sure to bind the returned function to the desired context
      
 3. `<T> new TypeAsserter.AssertableFunction(fn: (args: ...any): T)`
     * Creates a new TypeAsserter.AssertableFunction which has the following methods
